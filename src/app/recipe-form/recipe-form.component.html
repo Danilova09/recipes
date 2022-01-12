@@ -1,32 +1,89 @@
 <div class="form-block">
   <h4 class="text-center">Add recipe</h4>
-  <form class="form mt-5">
+  <form class="form mt-5"
+        [formGroup]="recipeForm"
+        (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="name">Recipe name</label>
-      <input type="text" class="form-control" id="name">
+      <input type="text"
+             [class]="fieldHasErrors('name', 'required') ? 'form-control is-invalid': 'form-control'"
+             formControlName="name"
+             id="name">
+      <small class="text-danger"
+             *ngIf="fieldHasErrors('name', 'required')">
+        Enter recipe's name!
+      </small>
     </div>
     <div class="form-group">
-      <label for="description">Recipe description</label>
-      <textarea  name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
+      <label for="recipeDescription">Recipe description</label>
+      <textarea name="recipeDescription"
+                id="recipeDescription"
+                formControlName="recipeDescription"
+                [class]="fieldHasErrors('recipeDescription', 'required') ? 'form-control is-invalid': 'form-control'"
+                cols="30"
+                rows="10"></textarea>
+      <small class="text-danger"
+             *ngIf="fieldHasErrors('recipeDescription', 'required')">
+        Enter description!
+      </small>
     </div>
     <div class="form-group">
       <label for="imgUrl">Dish image link</label>
-      <input type="text" class="form-control" id="imgUrl">
+      <input type="text"
+             formControlName="imgUrl"
+             [class]="fieldHasErrors('imgUrl', 'required') ? 'form-control is-invalid': 'form-control'"
+             id="imgUrl">
+      <small class="text-danger"
+             *ngIf="fieldHasErrors('imgUrl', 'required')">
+        Enter image link!
+      </small>
     </div>
     <div class="form-group">
       <label for="ingredients">Ingredients</label>
-      <textarea  name="ingredients" id="ingredients" cols="30" rows="10" class="form-control"></textarea>
+      <textarea name="ingredients"
+                id="ingredients"
+                formControlName="ingredients"
+                [class]="fieldHasErrors('ingredients', 'required') ? 'form-control is-invalid': 'form-control'"
+                cols="30"
+                rows="10"
+      ></textarea>
+      <small class="text-danger"
+             *ngIf="fieldHasErrors('ingredients', 'required')">
+        Enter ingredients!
+      </small>
     </div>
     <div class="form-group mt-5">
       <h5 class="mb-3">Steps</h5>
       <button class="btn btn-outline-success">add step</button>
       <div class="form-group mt-3">
         <label for="stepImg">Step image link</label>
-        <input type="text" class="form-control" id="stepImg">
-        <label for="stepDescription" class="mt-3">Step description</label>
-        <textarea name="stepDescription" id="stepDescription" cols="30" rows="10" class="form-control"></textarea>
+        <input type="text"
+               [class]="fieldHasErrors('stepImg', 'required') ? 'form-control is-invalid' : 'form-control'"
+               formControlName="stepImg"
+               id="stepImg">
+        <small class="text-danger"
+               *ngIf="fieldHasErrors('stepImg', 'required')">
+          Enter step image link!
+        </small>
+      </div>
+      <div class="form-group">
+        <label for="stepDescription"
+               class="mt-3">Step description</label>
+        <textarea name="stepDescription"
+                  id="stepDescription"
+                  [class]="fieldHasErrors('stepDescription', 'required') ? 'form-control is-invalid' : 'form-control' "
+                  cols="30"
+                  formControlName="stepDescription"
+                  rows="10"
+        ></textarea>
+        <small class="text-danger"
+               *ngIf="fieldHasErrors('stepDescription', 'required')">
+          Enter step description!
+        </small>
       </div>
     </div>
-    <button class="btn btn-info mt-3">save</button>
+    <button class="btn btn-info mt-3"
+            [disabled]="recipeForm.invalid"
+    >save</button>
   </form>
 </div>
