@@ -1,15 +1,22 @@
 <header class="header bg-light">
   <nav class="navbar navbar-light bg-light container p-0">
-    <a class="navbar-brand p-0">
+    <a class="navbar-brand p-0" routerLink="/">
       <span class="logo_text-pink d-block text-center text-success">foodie</span>
       <span class="logo_text-black d-block text-center" style="margin-top: -10px;">Food</span>
     </a>
     <ul class="nav justify-content-end">
       <li class="nav-item">
-        <a class="nav-link active" href="#">Recipes</a>
+        <a class="nav-link"
+           routerLink="/"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}">Recipes</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Create recipe</a>
+        <a class="nav-link"
+           routerLink="add-recipe"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}"
+        >Add recipe</a>
       </li>
     </ul>
   </nav>
