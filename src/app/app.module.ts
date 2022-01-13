@@ -8,6 +8,7 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { RecipeItemComponent } from './recipes/recipe-item/recipe-item.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { RecipeDetailsComponent } from './recipes/recipe-details/recipe-details.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     RecipeFormComponent,
     RecipesComponent,
-    RecipeItemComponent
+    RecipeItemComponent,
+    RecipeDetailsComponent
   ],
   imports: [
     BrowserModule,
