@@ -23,6 +23,9 @@ export class RecipeService {
     this.http.get<{ [id: string]: Recipe }>('https://recipes-7707f-default-rtdb.firebaseio.com/recipes.json')
       .pipe(map(result => {
         this.fetchingRecipes.next(false);
+        if (!result) {
+          return [];
+        }
         return Object.keys(result).map(id => {
           const recipeData = result[id];
           return new Recipe(
@@ -37,11 +40,24 @@ export class RecipeService {
       }))
       .subscribe((recipes: Recipe[]) => {
         this.recipes = recipes;
-        console.log(recipes);
         this.recipesChange.next(recipes);
       }, () => {
         this.fetchingRecipes.next(false);
       });
+  }
+
+  fetchRecipe(recipeId: string) {
+    return this.http.get<Recipe>(`https://recipes-7707f-default-rtdb.firebaseio.com/recipes/${recipeId}.json`)
+      .pipe(map (recipe => {
+        return new Recipe(
+          recipeId,
+          recipe.name,
+          recipe.recipeDescription,
+          recipe.imgUrl,
+          recipe.ingredients,
+          recipe.steps,
+        )
+      }));
   }
 
   addRecipe(recipe: Recipe) {
@@ -53,5 +69,9 @@ export class RecipeService {
       steps: recipe.steps,
     };
     this.http.post('https://recipes-7707f-default-rtdb.firebaseio.com/recipes.json', body).subscribe();
+  }
+
+  removeRecipe(recipe: Recipe) {
+    return this.http.delete(`https://recipes-7707f-default-rtdb.firebaseio.com/recipes/${recipe.id}.json`);
   }
 }

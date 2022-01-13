@@ -1,13 +1,24 @@
-  <div class="card my-3 mx-2" style="width: 270px;">
-    <img [src]="recipe.imgUrl" [alt]="recipe.name" class="card-img-top">
-    <div class="card-body">
-      <h5 class="card-title">{{ recipe.name }}</h5>
-      <p class="card-text">{{ recipe.recipeDescription }}</p>
-      <div class="d-flex justify-content-end">
-        <a routerLink="recipe-details/id" class="btn btn-info">view</a>
-        <a href="#" class="btn btn-primary ml-2">edit</a>
-        <a href="#" class="btn btn-danger ml-2">delete</a>
-      </div>
+<div class="card my-3 mx-2"
+     style="width: 270px;">
+  <img [src]="recipe.imgUrl"
+       [alt]="recipe.name"
+       class="card-img-top">
+  <div class="card-body">
+    <h5 class="card-title">{{ recipe.name }}</h5>
+    <p class="card-text">{{ recipe.recipeDescription }}</p>
+    <div class="d-flex justify-content-end">
+      <a [routerLink]="['recipes-details', recipe.id]"
+         class="btn btn-info">view</a>
+      <a [routerLink]="['recipes-details', recipe.id, 'edit']"
+         class="btn btn-primary ml-2">edit</a>
+      <button class="btn btn-danger ml-2"
+              (click)="delete()">
+        <span class="spinner-border spinner-border-sm"
+              role="status"
+              *ngIf="removingRecipe"></span>
+        <span *ngIf="!removingRecipe">delete</span>
+      </button>
     </div>
   </div>
+</div>
 

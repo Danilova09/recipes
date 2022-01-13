@@ -5,9 +5,9 @@ export class Recipe {
     public recipeDescription: string,
     public imgUrl: string,
     public ingredients: string,
-    public steps: {
+    public steps: [{
       stepImg: string,
       stepDescription: string,
-    }
+    }]
     ){}
 }

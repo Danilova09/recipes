@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { RecipesComponent } from './recipes/recipes.component';
 import { RecipeFormComponent } from './recipe-form/recipe-form.component';
 import { RecipeDetailsComponent } from './recipes/recipe-details/recipe-details.component';
+import { RecipeResolver } from './recipes/recipe-resolver.service';
 
 const routes: Routes = [
   {path: '', component: RecipesComponent},
-  {path: 'recipe-details/id', component: RecipeDetailsComponent},
-  {path: 'add-recipe', component: RecipeFormComponent},
+  {path: 'recipes/new', component: RecipeFormComponent},
+  {path: 'recipes-details/:id', component: RecipeDetailsComponent, resolve: {recipe: RecipeResolver}},
+  {path: 'recipes-details/:id/edit', component: RecipeFormComponent},
 ];
 
 @NgModule({
