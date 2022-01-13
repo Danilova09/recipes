@@ -32,5 +32,4 @@ export class RecipesComponent implements OnInit, OnDestroy {
     this.recipesChangeSubscription.unsubscribe();
     this.fetchingRecipesSubscription.unsubscribe();
   }
-
 }
