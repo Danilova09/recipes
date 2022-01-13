@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RecipeService } from '../shared/recipe.service';
 import { Recipe } from '../shared/recipe.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-form',
@@ -10,9 +11,12 @@ import { Recipe } from '../shared/recipe.model';
 })
 export class RecipeFormComponent implements OnInit {
   recipeForm!: FormGroup;
+  isEdit = false;
+  recipeId = '';
 
   constructor(
     private recipeService: RecipeService,
+    private route: ActivatedRoute,
   ) {
   }
 
@@ -29,18 +33,56 @@ export class RecipeFormComponent implements OnInit {
         })
       ])
     });
+
+    this.route.data.subscribe(data => {
+      const recipe = <Recipe>data.recipe;
+      if (recipe) {
+        this.isEdit = true;
+        this.recipeId = recipe.id;
+        this.setFormValues({
+          name: recipe.name,
+          recipeDescription: recipe.recipeDescription,
+          imgUrl: recipe.imgUrl,
+          ingredients: recipe.ingredients,
+          steps: recipe.steps,
+        });
+      } else {
+        this.isEdit = false;
+        this.setFormValues({
+          name: '',
+          recipeDescription: '',
+          imgUrl: '',
+          ingredients: '',
+          steps: {
+            stepImg: '',
+            stepDescription: '',
+          },
+        });
+      }
+    });
+
+  }
+
+  setFormValues(value: { [keys: string]: any }) {
+    setTimeout(() => {
+      this.recipeForm.setValue(value);
+    });
   }
 
   onSubmit() {
     const recipe = new Recipe(
-      'id',
+      this.recipeId,
       this.recipeForm.controls.name.value,
       this.recipeForm.controls.recipeDescription.value,
       this.recipeForm.controls.imgUrl.value,
       this.recipeForm.controls.ingredients.value,
       this.recipeForm.controls.steps.value,
-    )
-    this.recipeService.addRecipe(recipe);
+    );
+    if (this.isEdit) {
+      this.recipeService.editRecipe(recipe);
+    } else {
+      this.recipeService.addRecipe(recipe);
+    }
   }
 
   fieldHasErrors(fieldName: string, errorType: string) {
@@ -61,6 +103,5 @@ export class RecipeFormComponent implements OnInit {
     const steps = <FormArray>this.recipeForm.get('steps');
     return steps.controls;
   }
-
 
 }

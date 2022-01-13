@@ -8,8 +8,8 @@ import { RecipeResolver } from './recipes/recipe-resolver.service';
 const routes: Routes = [
   {path: '', component: RecipesComponent},
   {path: 'recipes/new', component: RecipeFormComponent},
-  {path: 'recipes-details/:id', component: RecipeDetailsComponent, resolve: {recipe: RecipeResolver}},
-  {path: 'recipes-details/:id/edit', component: RecipeFormComponent},
+  {path: 'recipes/:id/details', component: RecipeDetailsComponent, resolve: {recipe: RecipeResolver}},
+  {path: 'recipes/:id/edit', component: RecipeFormComponent, resolve: {recipe: RecipeResolver}},
 ];
 
 @NgModule({

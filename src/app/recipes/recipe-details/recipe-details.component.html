@@ -23,8 +23,8 @@
     </div>
     <div class="card-footer d-flex justify-content-end">
       <a
-        [routerLink]="['edit']"
-         class="btn btn-primary">edit</a>
+        [routerLink]="['/recipes', recipe.id, 'edit']"
+        class="btn btn-primary">edit</a>
       <button (click)="remove()"
          class="btn btn-danger ml-2">delete</button>
     </div>

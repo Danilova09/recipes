@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Recipe } from './recipe.model';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -16,6 +17,7 @@ export class RecipeService {
 
   constructor(
     private http: HttpClient,
+    private router: Router,
   ) {}
 
   fetchRecipesData() {
@@ -68,10 +70,26 @@ export class RecipeService {
       ingredients: recipe.ingredients,
       steps: recipe.steps,
     };
-    this.http.post('https://recipes-7707f-default-rtdb.firebaseio.com/recipes.json', body).subscribe();
+    this.http.post('https://recipes-7707f-default-rtdb.firebaseio.com/recipes.json', body).subscribe(() => {
+      this.fetchRecipesData();
+    });
   }
 
   removeRecipe(recipe: Recipe) {
     return this.http.delete(`https://recipes-7707f-default-rtdb.firebaseio.com/recipes/${recipe.id}.json`);
+  }
+
+  editRecipe(recipe: Recipe) {
+    const body = {
+      name: recipe.name,
+      recipeDescription: recipe.recipeDescription,
+      imgUrl: recipe.imgUrl,
+      ingredients: recipe.ingredients,
+      steps: recipe.steps,
+    };
+    this.http.put(`https://recipes-7707f-default-rtdb.firebaseio.com/recipes/${recipe.id}.json`, body).subscribe(() => {
+      void this.router.navigate(['/']);
+      this.fetchRecipesData();
+    });
   }
 }

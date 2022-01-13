@@ -1,5 +1,5 @@
 <div class="form-block">
-  <h4 class="text-center">Add recipe</h4>
+  <h4 class="text-center">{{ isEdit ? 'Edit' : 'Add'}} recipe</h4>
   <form class="form mt-5"
         [formGroup]="recipeForm"
         (ngSubmit)="onSubmit()">
@@ -96,7 +96,7 @@
     <button class="btn btn-info mt-3"
             type="submit"
             [disabled]="recipeForm.invalid"
-    >save
+    >{{ isEdit ? 'edit' : 'save' }}
     </button>
   </form>
 </div>

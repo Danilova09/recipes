@@ -7,9 +7,9 @@
     <h5 class="card-title">{{ recipe.name }}</h5>
     <p class="card-text">{{ recipe.recipeDescription }}</p>
     <div class="d-flex justify-content-end">
-      <a [routerLink]="['recipes-details', recipe.id]"
+      <a [routerLink]="['recipes', recipe.id, 'details']"
          class="btn btn-info">view</a>
-      <a [routerLink]="['recipes-details', recipe.id, 'edit']"
+      <a [routerLink]="['recipes', recipe.id, 'edit']"
          class="btn btn-primary ml-2">edit</a>
       <button class="btn btn-danger ml-2"
               (click)="delete()">
