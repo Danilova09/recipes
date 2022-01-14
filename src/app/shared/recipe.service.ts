@@ -92,4 +92,5 @@ export class RecipeService {
       this.fetchRecipesData();
     });
   }
+
 }

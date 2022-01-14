@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Form, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RecipeService } from '../shared/recipe.service';
 import { Recipe } from '../shared/recipe.model';
 import { ActivatedRoute } from '@angular/router';
@@ -30,13 +30,22 @@ export class RecipeFormComponent implements OnInit {
         new FormGroup({
           stepImg: new FormControl('', Validators.required),
           stepDescription: new FormControl('', Validators.required)
-        })
+        }),
       ])
     });
+
 
     this.route.data.subscribe(data => {
       const recipe = <Recipe>data.recipe;
       if (recipe) {
+        const steps = <FormArray>this.recipeForm.get('steps');
+        for (let i = 0; i < recipe.steps.length - 1; i++) {
+          const formGroup = new FormGroup({
+            stepImg: new FormControl('', Validators.required),
+            stepDescription: new FormControl('', Validators.required)
+          });
+          steps.push(formGroup);
+        }
         this.isEdit = true;
         this.recipeId = recipe.id;
         this.setFormValues({
@@ -53,14 +62,13 @@ export class RecipeFormComponent implements OnInit {
           recipeDescription: '',
           imgUrl: '',
           ingredients: '',
-          steps: {
+          steps: [{
             stepImg: '',
             stepDescription: '',
-          },
+          }],
         });
       }
     });
-
   }
 
   setFormValues(value: { [keys: string]: any }) {

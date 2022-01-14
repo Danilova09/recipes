@@ -52,8 +52,8 @@
         Enter ingredients!
       </small>
     </div>
-    <div class="form-group mt-5"
-         formArrayName="steps">
+    <div class="form-group mt-5" formArrayName="steps"
+         >
       <h5 class="mb-3">Steps</h5>
       <button class="btn btn-outline-success"
               type="button"
@@ -82,7 +82,6 @@
                       [class]="fieldHasErrors('stepDescription', 'required') ? 'form-control is-invalid' : 'form-control' "
                       cols="30"
                       formControlName="stepDescription"
-                      class="form-control"
                       rows="10"
             ></textarea>
             <small class="text-danger"
