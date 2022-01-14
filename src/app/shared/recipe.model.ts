@@ -9,5 +9,5 @@ export class Recipe {
       stepImg: string,
       stepDescription: string,
     }]
-    ){}
+  ) {}
 }

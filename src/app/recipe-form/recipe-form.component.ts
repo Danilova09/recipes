@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RecipeService } from '../shared/recipe.service';
 import { Recipe } from '../shared/recipe.model';
 import { ActivatedRoute } from '@angular/router';
@@ -17,8 +17,7 @@ export class RecipeFormComponent implements OnInit {
   constructor(
     private recipeService: RecipeService,
     private route: ActivatedRoute,
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.recipeForm = new FormGroup({
@@ -33,7 +32,6 @@ export class RecipeFormComponent implements OnInit {
         }),
       ])
     });
-
 
     this.route.data.subscribe(data => {
       const recipe = <Recipe>data.recipe;
@@ -98,6 +96,18 @@ export class RecipeFormComponent implements OnInit {
     return Boolean(field && field.touched && field.errors?.[errorType]);
   }
 
+  stepFieldHasError(fieldName: string, errorType: string, index: number) {
+    const steps = this.recipeForm.get('steps') as FormArray;
+    const fieldGroup =  steps.at(index);
+    const field = fieldGroup.get(fieldName);
+    return  Boolean(field && field.touched && field.errors?.[errorType]);
+  }
+
+  getStepsControls() {
+    const steps = <FormArray>this.recipeForm.get('steps');
+    return steps.controls;
+  }
+
   addStep() {
     const steps = <FormArray>this.recipeForm.get('steps');
     const newStep = new FormGroup({
@@ -107,9 +117,8 @@ export class RecipeFormComponent implements OnInit {
     steps.push(newStep);
   }
 
-  getStepsControls() {
-    const steps = <FormArray>this.recipeForm.get('steps');
-    return steps.controls;
+  deleteStep(index: number) {
+    const stepsArray = <FormArray>this.recipeForm.get('steps');
+    stepsArray.removeAt(index);
   }
-
 }

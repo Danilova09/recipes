@@ -15,16 +15,12 @@ export class RecipeDetailsComponent implements OnInit {
     private recipeService: RecipeService,
     private route: ActivatedRoute,
     private router: Router,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
       this.recipe = <Recipe>data.recipe;
-    })
-  }
-
-  edit() {
-
+    });
   }
 
   remove() {

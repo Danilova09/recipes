@@ -29,4 +29,4 @@ import { RecipeDetailsComponent } from './recipes/recipe-details/recipe-details.
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

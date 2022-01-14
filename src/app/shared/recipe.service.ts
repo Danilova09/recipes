@@ -14,7 +14,6 @@ export class RecipeService {
   recipesChange = new Subject<Recipe[]>();
   fetchingRecipes = new Subject<boolean>();
 
-
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -50,7 +49,7 @@ export class RecipeService {
 
   fetchRecipe(recipeId: string) {
     return this.http.get<Recipe>(`https://recipes-7707f-default-rtdb.firebaseio.com/recipes/${recipeId}.json`)
-      .pipe(map (recipe => {
+      .pipe(map(recipe => {
         return new Recipe(
           recipeId,
           recipe.name,
@@ -58,7 +57,7 @@ export class RecipeService {
           recipe.imgUrl,
           recipe.ingredients,
           recipe.steps,
-        )
+        );
       }));
   }
 
@@ -75,10 +74,6 @@ export class RecipeService {
     });
   }
 
-  removeRecipe(recipe: Recipe) {
-    return this.http.delete(`https://recipes-7707f-default-rtdb.firebaseio.com/recipes/${recipe.id}.json`);
-  }
-
   editRecipe(recipe: Recipe) {
     const body = {
       name: recipe.name,
@@ -93,4 +88,7 @@ export class RecipeService {
     });
   }
 
+  removeRecipe(recipe: Recipe) {
+    return this.http.delete(`https://recipes-7707f-default-rtdb.firebaseio.com/recipes/${recipe.id}.json`);
+  }
 }

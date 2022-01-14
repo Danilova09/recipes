@@ -4,8 +4,8 @@
   <div class="card"
        style="width: 700px; display: block; margin: 70px auto;">
     <img [src]="recipe.imgUrl"
-         alt=""
-         style="max-height: 300px;"
+         [alt]="recipe.name"
+         style="max-height: 400px;"
          class="card-img-top">
     <div class="card-body">
       <p>Name: {{ recipe.name }}</p>
@@ -13,20 +13,21 @@
       <p>Ingredients: {{ recipe.ingredients }}</p>
       <div class="steps mt-5">
         <h5 class="text-center">Steps</h5>
-        <div class="steps-list mt-3" *ngFor="let step of recipe.steps; let i = index">
-          <p>{{ i +1 }}. {{ step.stepDescription }}</p>
+        <div class="steps-list mt-3"
+             *ngFor="let step of recipe.steps; let i = index">
+          <p>{{ i + 1 }}. {{ step.stepDescription }}</p>
           <img [src]="step.stepImg"
-               style="width: 300px; height: 200px;"
-               alt="">
+               style="width: 300px;"
+               [alt]="recipe.name">
         </div>
       </div>
     </div>
     <div class="card-footer d-flex justify-content-end">
-      <a
-        [routerLink]="['/recipes', recipe.id, 'edit']"
-        class="btn btn-primary">edit</a>
+      <a [routerLink]="['/recipes', recipe.id, 'edit']"
+         class="btn btn-primary">edit</a>
       <button (click)="remove()"
-         class="btn btn-danger ml-2">delete</button>
+              class="btn btn-danger ml-2">delete
+      </button>
     </div>
   </div>
 </div>
